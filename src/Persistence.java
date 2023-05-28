@@ -11,7 +11,7 @@ public class Persistence {
             outputObject.close();
             file.close();
         } catch (IOException e) {
-            System.err.println("Environments file error");
+            System.err.println("Serialize Environments file error");
         }
     }
 
@@ -25,12 +25,13 @@ public class Persistence {
             file.close();
             return environmentsList;
         } catch (FileNotFoundException e) {
-            return new ArrayList<Environment>();
+            System.err.println("File not found");
+            return new ArrayList<>();
         } catch (IOException e) {
-            System.err.println("Environments file error");
+            System.err.println("Deserialize Environments file error");
             return null;
         } catch (ClassNotFoundException e) {
-            System.err.println("Environments class not found");
+            System.err.println("Deserialize Environments class not found");
             return null;
         }
     }

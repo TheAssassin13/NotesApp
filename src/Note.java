@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Note implements Serializable {
     private String title;
@@ -11,11 +12,12 @@ public class Note implements Serializable {
     public LocalDateTime lastAccessed;
     public LocalDateTime lastModified;
 
+
     public Note(String title, String content, String color, String theme, Priority priority) {
-        this.title = title;
-        this.content = content;
-        this.color = color;
-        this.theme = theme;
+        this.title = title.toLowerCase();
+        this.content = content.toLowerCase();
+        this.color = color.toLowerCase();
+        this.theme = theme.toLowerCase();
         this.priority = priority;
         this.creationDate = LocalDateTime.now();
         this.lastAccessed = LocalDateTime.now();
@@ -23,23 +25,22 @@ public class Note implements Serializable {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.toLowerCase();
         this.lastModified = LocalDateTime.now();
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = content.toLowerCase();
         this.lastModified = LocalDateTime.now();
     }
 
     public void setColor(String color) {
-        this.color = color;
+        this.color = color.toLowerCase();
         this.lastModified = LocalDateTime.now();
-
     }
 
     public void setTheme(String theme) {
-        this.theme = theme;
+        this.theme = theme.toLowerCase();
         this.lastModified = LocalDateTime.now();
 
     }
@@ -74,10 +75,13 @@ public class Note implements Serializable {
     }
 
     public void showTitle() {
+        this.lastAccessed = LocalDateTime.now();
         System.out.print("Titulo: " + this.title);
     }
 
     public void showTitleContent() {
+        this.lastAccessed = LocalDateTime.now();
+
         System.out.print("Titulo: " + this.title + "\nContenido: " + this.content);
 
     }
@@ -85,7 +89,7 @@ public class Note implements Serializable {
     @Override
     public String toString() {
         this.lastAccessed = LocalDateTime.now();
-        return "Titulo: " + this.title + "\nColor: " + this.color + "\nTema: " + this.theme + "\nPrioridad: " + this.priority + "\nFecha de creacion: " + this.creationDate + "\nFecha ultimo acceso: " + this.lastAccessed + "\nFecha ultima modificacion: " + this.lastModified + "\n\nContenido: " + this.content;
+        return "Titulo: " + this.title + "\nColor: " + this.color + "\nTema: " + this.theme + "\nPrioridad: " + this.priority + "\nFecha de creacion: " + this.creationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\nFecha ultimo acceso: " + this.lastAccessed.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\nFecha ultima modificacion: " + this.lastModified.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n\nContenido: " + this.content;
 
     }
 
