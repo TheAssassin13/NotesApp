@@ -1,7 +1,8 @@
+//Made by Vicente Díaz and Benjamín Farías
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-//Vicente Díaz y Benjamín Farías
 
 public class Main {
     public static void main(String[] args) {

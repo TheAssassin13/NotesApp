@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -18,7 +19,6 @@ public class Environment implements Serializable {
     }
 
     public void deleteNote(int i) {
-        i -= 1;
         Note temp = new Note(this.notes.get(i).getTitle(), this.notes.get(i).getContent(), this.notes.get(i).getColor(), this.notes.get(i).getTheme(), this.notes.get(i).getPriority());
         this.recycleBin.add(temp);
         this.notes.remove(i);
@@ -31,7 +31,7 @@ public class Environment implements Serializable {
     }
 
     public void deleteNotePermanently(int i) {
-        this.recycleBin.remove(i - 1);
+        this.recycleBin.remove(i );
     }
 
     public void deleteAllPermanently() {
@@ -39,8 +39,7 @@ public class Environment implements Serializable {
     }
 
     public void restoreNote(int i) {
-        i -= 1;
-        Note temp = new Note(this.notes.get(i).getTitle(), this.notes.get(i).getContent(), this.notes.get(i).getColor(), this.notes.get(i).getTheme(), this.notes.get(i).getPriority());
+        Note temp = new Note(this.recycleBin.get(i).getTitle(), this.recycleBin.get(i).getContent(), this.recycleBin.get(i).getColor(), this.recycleBin.get(i).getTheme(), this.recycleBin.get(i).getPriority());
         this.notes.add(temp);
         this.recycleBin.remove(i);
     }
@@ -54,18 +53,21 @@ public class Environment implements Serializable {
     public void showNotes(ArrayList<Note> notes) {
         for (int i = 0; i < notes.size(); i++) {
             notes.get(i).showTitle();
+            System.out.println(" (Fecha creacion: " + notes.get(i).getCreationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "; Cantidad de palabras: " + notes.get(i).getContent().length() + ")");
         }
     }
 
     public void showNotes() {
         for (int i = 0; i < notes.size(); i++) {
-            System.out.print("[" + i + "] Titulo: " + notes.get(i).getTitle());
+            System.out.println("[" + i + "] Titulo: " + notes.get(i).getTitle());
         }
     }
 
     public void showRecycleBin() {
         System.out.println("Papelera de reciclaje: ");
-        showNotes(this.recycleBin);
+        for (int i = 0; i < recycleBin.size(); i++) {
+            System.out.println("[" + i + "] Titulo: " + recycleBin.get(i).getTitle());
+        }
     }
 
     public void showByTitle() {
@@ -120,7 +122,7 @@ public class Environment implements Serializable {
         System.out.println("Notas: ");
         for (int i = 0; i < tempNotes.size(); i++) {
             tempNotes.get(i).showTitle();
-            System.out.println(" Fecha de creacion: " + tempNotes.get(i).getCreationDate());
+            System.out.println(" Fecha de creacion: " + tempNotes.get(i).getCreationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         }
     }
 

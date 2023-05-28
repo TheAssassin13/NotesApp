@@ -33,7 +33,7 @@ public class Verifier {
         return (Objects.equals(user.getPassword(), password));
     }
 
-    public static boolean verifyRegistrationNumber(String number) { //TODO: Arreglar
+    public static boolean verifyRegistrationNumber(String number) {
         return (number.length() > 6 && number.length() < 11);
     }
 
@@ -46,10 +46,10 @@ public class Verifier {
                 number = scan.nextInt();
                 scan.nextLine();
             } catch (InputMismatchException exception) {
-                System.out.println("No es un numero valido");
+                System.out.println("No es un numero valido.");
             }
-            if (number < 0) System.out.println("Se requiere un numero positivo");
-            if (number > size) System.out.println("Se requiere un numero dentro de los limites");
+            if (number < 0) System.out.println("Se requiere un numero positivo.");
+            if (number > size) System.out.println("Se requiere un numero dentro de los limites.");
         } while (number < 0 || number > size);
         return number;
     }
@@ -66,15 +66,14 @@ public class Verifier {
                     month = scan.nextInt();
                     year = scan.nextInt();
                 } catch (InputMismatchException exception) {
-                    System.out.println("Ingrese la fecha en el formato indicado");
+                    System.out.println("Ingrese la fecha en el formato indicado.");
                     scan.nextLine();
                 }
             } while (day <= 0 && month <= 0 && year <= 1850);
             try {
-                LocalDate date = LocalDate.of(year, month, day);
-                return date;
+                return LocalDate.of(year, month, day);
             } catch (DateTimeException exception) {
-                System.out.println("Ingrese una fecha valida");
+                System.out.println("Ingrese una fecha valida.");
             }
         } while (true);
     }
