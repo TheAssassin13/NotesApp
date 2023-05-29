@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 
 public class Environment implements Serializable {
     public User user;
@@ -31,7 +32,7 @@ public class Environment implements Serializable {
     }
 
     public void deleteNotePermanently(int i) {
-        this.recycleBin.remove(i );
+        this.recycleBin.remove(i);
     }
 
     public void deleteAllPermanently() {
@@ -52,8 +53,8 @@ public class Environment implements Serializable {
 
     public void showNotes(ArrayList<Note> notes) {
         for (int i = 0; i < notes.size(); i++) {
-            notes.get(i).showTitle();
-            System.out.println(" (Fecha creacion: " + notes.get(i).getCreationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "; Cantidad de palabras: " + notes.get(i).getContent().length() + ")");
+            System.out.print("- ");
+            notes.get(i).showNote();
         }
     }
 
@@ -76,8 +77,8 @@ public class Environment implements Serializable {
 
         System.out.println("Notas: ");
         for (int i = 0; i < tempNotes.size(); i++) {
-            tempNotes.get(i).showTitle();
-            System.out.println();
+            System.out.print("- ");
+            System.out.println(tempNotes.get(i).getTitle());
         }
     }
 
@@ -87,20 +88,33 @@ public class Environment implements Serializable {
 
         System.out.println("Notas: ");
         for (int i = 0; i < tempNotes.size(); i++) {
-            tempNotes.get(i).showTitle();
-            System.out.println(" Color: " + tempNotes.get(i).getColor());
+            System.out.print("- ");
+            System.out.println("Titulo: " + tempNotes.get(i).getTitle() + " | Color: " + tempNotes.get(i).getColor());
         }
 
     }
 
     public void showByTheme() {
-        ArrayList<Note> tempNotes = new ArrayList<>(this.notes);
-        tempNotes.sort(Comparator.comparing(Note::getTheme));
+        ArrayList<String> themes = new ArrayList<>();
+        for (Note note : this.notes) {
+            themes.add(note.getTheme());
+        }
 
-        System.out.println("Notas: ");
-        for (int i = 0; i < tempNotes.size(); i++) {
-            tempNotes.get(i).showTitle();
-            System.out.println(" Tema: " + tempNotes.get(i).getTheme());
+        HashSet<String> uniquesThemes = new HashSet<>(themes);
+        themes = new ArrayList<>(uniquesThemes);
+        System.out.println("Temas: ");
+        for (int i = 0; i < themes.size(); i++) {
+            System.out.println("[" + i + "] " + themes.get(i));
+        }
+
+        System.out.print("Ingrese tema a mostrar: ");
+        int index = Verifier.verifyInputInt(themes.size());
+        System.out.println();
+        for (Note note : this.notes) {
+            if (note.getTheme().equals(themes.get(index))) {
+                System.out.print("- ");
+                note.showNote();
+            }
         }
     }
 
@@ -110,8 +124,8 @@ public class Environment implements Serializable {
 
         System.out.println("Notas: ");
         for (int i = 0; i < tempNotes.size(); i++) {
-            tempNotes.get(i).showTitle();
-            System.out.println(" Prioridad: " + tempNotes.get(i).getPriority());
+            System.out.print("- ");
+            System.out.println("Titulo: " + tempNotes.get(i).getTitle() + " | Prioridad: " + tempNotes.get(i).getPriority());
         }
     }
 
@@ -121,8 +135,8 @@ public class Environment implements Serializable {
 
         System.out.println("Notas: ");
         for (int i = 0; i < tempNotes.size(); i++) {
-            tempNotes.get(i).showTitle();
-            System.out.println(" Fecha de creacion: " + tempNotes.get(i).getCreationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            System.out.print("- ");
+            System.out.println("Titulo: " + tempNotes.get(i).getTitle() + " | Fecha de creacion: " + tempNotes.get(i).getCreationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         }
     }
 

@@ -9,11 +9,11 @@ import java.util.regex.Pattern;
 public class Verifier {
 
     public static boolean verifyContentNote(String content) {
-        return (content.length() < 200);
+        return (content.length() <= 200);
     }
 
     public static boolean verifyTitleNote(String title) {
-        return (title.length() < 30);
+        return (title.length() <= 30);
     }
 
     public static Priority verifyPriority(String priority) {
@@ -82,7 +82,13 @@ public class Verifier {
         return (phoneNumber.startsWith("+569") && phoneNumber.length() == 12);
     }
 
-    public static boolean verifyEmail(String email) {
-        return Pattern.compile("^[A-Za-z0-9_.]+@([A-Za-z]+)(\\.[A-Za-z]+)$").matcher(email).matches();
+    public static boolean verifyEmail(String email, ArrayList<Environment> environments) {
+        boolean bool = Pattern.compile("^[A-Za-z0-9_.]+@([A-Za-z]+)(\\.[A-Za-z]+)$").matcher(email).matches();
+        for (Environment environment : environments) {
+            if (environment.user.email.equals(email)) {
+                return false;
+            }
+        }
+        return bool;
     }
 }

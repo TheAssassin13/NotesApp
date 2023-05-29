@@ -74,17 +74,10 @@ public class Note implements Serializable {
         return creationDate;
     }
 
-    public void showTitle() {
-        this.lastAccessed = LocalDateTime.now();
-        System.out.print("Titulo: " + this.title);
+    public void showNote() {
+        System.out.println("Titulo: " + this.title + " (Fecha creacion: " + this.creationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "; Cantidad de palabras: " + this.content.length() + ")");
     }
 
-    public void showTitleContent() {
-        this.lastAccessed = LocalDateTime.now();
-
-        System.out.print("Titulo: " + this.title + "\nContenido: " + this.content);
-
-    }
 
     @Override
     public String toString() {

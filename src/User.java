@@ -53,5 +53,9 @@ public class User implements Serializable {
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
 

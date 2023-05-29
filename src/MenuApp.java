@@ -57,7 +57,6 @@ public class MenuApp {
                 case 8:
                     editUserData();
                     Persistence.serializeEnvironment(this.environments);
-
                     break;
                 case 9:
                     if (signIn()) {
@@ -91,7 +90,7 @@ public class MenuApp {
                 Persistence.serializeEnvironment(this.environments);
                 break;
             case 2:
-                System.out.println("Has salido.");
+                System.out.println("Has salido del programa! :(");
                 return true;
             default:
                 System.out.println("Ingrese una opcion correcta.");
@@ -111,7 +110,7 @@ public class MenuApp {
 
         for (index = 0; index < this.environments.size(); index++) {
             if (Verifier.verifyUserLogin(this.environments.get(index).user, userName)) {
-                break;
+                        break;
             }
         }
         if (index != this.environments.size()) {
@@ -142,8 +141,7 @@ public class MenuApp {
 
     public void logoutUser() {
         this.currentEnvironment = null;
-        System.out.println("Has salido del programa.");
-        //loginUser();
+        System.out.println("Has salido del programa! :(");
     }
 
     public void registerUser() {
@@ -165,8 +163,8 @@ public class MenuApp {
         do {
             System.out.print("Ingrese un email: ");
             email = scan.nextLine();
-            if (!Verifier.verifyEmail(email)) System.out.println("No es un email valido.");
-        } while (!Verifier.verifyEmail(email));
+            if (!Verifier.verifyEmail(email,this.environments)) System.out.println("No es un email valido.");
+        } while (!Verifier.verifyEmail(email, this.environments));
 
         do {
             System.out.print("Ingrese su numero de matricula: ");
@@ -247,8 +245,9 @@ public class MenuApp {
             do {
                 System.out.print("Ingrese un email: ");
                 email = scan.nextLine();
-                if (!Verifier.verifyEmail(email)) System.out.println("No es un email valido.");
-            } while (!Verifier.verifyEmail(email));
+                if (!Verifier.verifyEmail(email, this.environments)) System.out.println("No es un email valido.");
+            } while (!Verifier.verifyEmail(email, this.environments));
+            this.currentEnvironment.user.setEmail(email);
             System.out.println("Se ha editado el email correctamente.\n");
         }
     }
@@ -528,6 +527,7 @@ public class MenuApp {
         }
         System.out.println("Mostar notas ordenadas por: ");
         System.out.println("[0] Titulo\n[1] Color\n[2] Tema\n[3] Prioridad\n[4] Fecha de creacion");
+        System.out.print("Ingrese una opcion: ");
         option = Verifier.verifyInputInt(5);
         switch (option) {
             case 0:
