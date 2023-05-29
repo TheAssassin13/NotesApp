@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 
-//perro
 public class Persistence {
 
     public static void serializeEnvironment(ArrayList<Environment> environmentsList) {
